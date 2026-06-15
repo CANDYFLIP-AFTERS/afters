@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candy Flip Afters | The Party Never Ends</title>
+    <!-- Browser Tab Bar Icon (Favicon Configuration) -->
+    <link rel="icon" type="image/png" href="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.png">
+    
+    <!-- Premium Fonts Setup -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -113,21 +117,28 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             text-decoration: none;
-            color: var(--text-main);
             font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
+        /* Increased Size on Logo Image Element */
         .nav-logo img {
-            width: 35px;
-            height: 35px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid rgba(255, 79, 163, 0.3);
+            border: 1px solid rgba(255, 79, 163, 0.4);
+        }
+        /* Bold Glowing Rapidly Flickering Nav Brand Text */
+        .nav-text-glow {
+            color: var(--accent);
+            font-weight: 800; /* Extra Bold */
+            text-shadow: 0 0 8px rgba(255, 79, 163, 0.8),
+                         0 0 20px rgba(255, 79, 163, 0.4);
+            animation: rapid-text-flicker 0.8s infinite; /* High frequency stutter cycle */
         }
 
         /* Reusable UI Components */
@@ -200,20 +211,18 @@
             margin: 24px 0 40px 0;
             line-height: 1.6;
         }
-        /* High-Visibility Glowing & Blinking White Neon Text */
         .hero-glow {
             display: block;
-            color: #ffffff; /* Switched to White */
+            color: #ffffff;
             font-family: var(--font-body);
             font-size: clamp(1.2rem, 2.8vw, 1.6rem);
-            font-weight: 700; /* Bold */
+            font-weight: 700;
             letter-spacing: 1px;
             margin-bottom: 12px;
-            /* Multi-layered custom white neon glow vectors */
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.9),
                          0 0 20px rgba(255, 255, 255, 0.5),
                          0 0 35px rgba(255, 255, 255, 0.2);
-            animation: text-flicker 5s infinite; /* Connected to text blink module */
+            animation: text-flicker 5s infinite;
         }
         .hero-subtext {
             display: block;
@@ -361,7 +370,6 @@
             margin: 0 auto 40px auto;
             line-height: 1.8;
         }
-        /* Bold, Glowing, Blinking White Configuration Block */
         .upcoming-details {
             display: flex;
             justify-content: center;
@@ -371,17 +379,16 @@
             font-size: 0.9rem;
             letter-spacing: 2px;
             flex-wrap: wrap;
-            color: #ffffff; /* Switched entire block to White */
-            font-weight: 700; /* Bold */
-            /* White neon ambient dispersion shadow overlay */
+            color: #ffffff;
+            font-weight: 700;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.9),
                          0 0 20px rgba(255, 255, 255, 0.5);
-            animation: text-flicker 5s infinite; 
-            animation-delay: 0.4s; /* Slight staggered offsets to prevent uniform flashing */
+            animation: text-flicker 5s infinite;
+            animation-delay: 0.4s;
         }
         .upcoming-details span {
             color: #ffffff;
-            font-weight: 800; /* Extra structural punch on key data values */
+            font-weight: 800;
         }
         .tba-text {
             color: var(--accent);
@@ -515,18 +522,23 @@
             87% { opacity: 0.2; filter: brightness(0.3); }  
             88% { opacity: 1; filter: brightness(1); }
         }
-
-        /* Premium Rhythmic Cyber-Neon Text Flicker Engine */
         @keyframes text-flicker {
             0%, 100% { opacity: 1; }
             45% { opacity: 1; }
-            46% { opacity: 0.25; } /* Sudden rapid voltage drop simulation */
+            46% { opacity: 0.25; }
             47% { opacity: 1; }
-            48% { opacity: 0.35; } /* Secondary quick stutter sequence */
+            48% { opacity: 0.35; }
             50% { opacity: 1; }
             88% { opacity: 1; }
-            89% { opacity: 0.15; } /* Deep system isolation blink */
+            89% { opacity: 0.15; }
             91% { opacity: 1; }
+        }
+
+        /* Ultra-Fast High-Energy Rapid Neon Flicker Engine */
+        @keyframes rapid-text-flicker {
+            0%, 100%, 12%, 14%, 34%, 36%, 38%, 62%, 64%, 88%, 90% { opacity: 1; }
+            13%, 35%, 63%, 89% { opacity: 0.3; filter: brightness(0.5); }
+            37% { opacity: 0.65; }
         }
 
         @media (max-width: 768px) {
@@ -541,10 +553,12 @@
 </head>
 <body>
 
+    <!-- Gateway Protection Screen (Triggers Music Engine Loop) -->
     <div id="entry-overlay">
         <button class="entry-btn" onclick="initiateClubExperience()">Enter The Afters</button>
     </div>
 
+    <!-- Hidden Architecture Music Node Player Configured with Loop Indefinitely -->
     <audio id="club-track" loop prefetch="auto">
         <source src="vjgalaxy-melodic-techno-09-513318 (mp3cut.net).mp3" type="audio/mpeg">
     </audio>
@@ -555,10 +569,12 @@
     <nav>
         <a href="#" class="nav-logo">
             <img src="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.png" alt="Candy Flip Logo">
-            Candy Flip
+            <!-- Consolidated Brand Wrapper Configured with Rapid Stutter Animation -->
+            <span class="nav-text-glow">CandyFlip</span>
         </a>
     </nav>
 
+    <!-- SECTION 1: HERO -->
     <section class="hero">
         <h1>Where Next?</h1>
         <p>
@@ -571,6 +587,7 @@
         </div>
     </section>
 
+    <!-- SECTION 2: ABOUT -->
     <section class="about">
         <span class="section-tag">The Philosophy</span>
         <h2>The Main Event Is Just The Opening Act.</h2>
@@ -592,6 +609,7 @@
         </div>
     </section>
 
+    <!-- SECTION 3: WHAT WE STAND FOR -->
     <section class="pillars">
         <div class="pillars-grid">
             <div class="pillar-card">
@@ -617,6 +635,7 @@
         </div>
     </section>
 
+    <!-- SECTION 4: UPCOMING -->
     <section class="upcoming">
         <div class="upcoming-badge">Next Experience</div>
         <h2>Candy Flip #02 Summer Edition</h2>
@@ -630,6 +649,7 @@
         <div class="tba-text">More Details TBA</div>
     </section>
 
+    <!-- SECTION 5: WAITLIST FORM -->
     <section id="waitlist-section" class="waitlist">
         <h2>Get Early Access</h2>
         <p>Secure entry privileges and early-bird notifications for upcoming underground configurations.</p>
@@ -674,6 +694,7 @@
         </form>
     </section>
 
+    <!-- SECTION 6: FOOTER -->
     <footer>
         <div class="footer-brand">
             <h3>Candy Flip Afters</h3>
@@ -689,6 +710,7 @@
         </div>
     </footer>
 
+    <!-- Logic Engine Script Framework -->
     <script>
         function initiateClubExperience() {
             const audioTrack = document.getElementById('club-track');
