@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Flip Afters | The Party Never Ends</title>
+    <!-- Premium Fonts Setup -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-charcoal: #0a0a0a;
+            --bg-card: #121212;
+            --accent: #FF4FA3;
+            --accent-glow: rgba(255, 79, 163, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Base & Reset Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--bg-pure);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Atmospheric Film Grain Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Elegant Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            box-sizing: border-box;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            backdrop-filter: blur(5px);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-logo img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 79, 163, 0.3);
+        }
+
+        /* Reusable UI Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 0px; /* Sharp technical edge alignment */
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000000;
+            font-weight: 700;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent);
+            background-color: #ffffff;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-left: 15px;
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        section {
+            padding: 120px 8%;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* SECTION 1: HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--bg-pure)), url('Gemini_Generated_Image_enmvnienmvnienmv (1)_2.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: background-pulse 10s infinite alternate;
+        }
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 24px 0 40px 0;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .hero p span {
+            display: block;
+            color: var(--text-main);
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* SECTION 2: ABOUT */
+        .about {
+            background-color: var(--bg-charcoal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .section-tag {
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .about h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            max-width: 850px;
+            line-height: 1.2;
+            margin: 0 0 30px 0;
+        }
+        .about p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+        }
+        .highlights-grid {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 900px;
+        }
+        .highlight-item {
+            flex: 1;
+            min-width: 200px;
+            border-left: 1px solid rgba(255, 79, 163, 0.3);
+            padding-left: 20px;
+            text-align: left;
+        }
+        .highlight-item h3 {
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+            font-family: var(--font-display);
+        }
+        .highlight-item p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* SECTION 3: WHAT WE STAND FOR */
+        .pillars h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pillar-card {
+            background-color: var(--bg-card);
+            padding: 40px 30px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .pillar-card:hover {
+            border-color: rgba(255, 79, 163, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .pillar-card svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            margin-bottom: 24px;
+        }
+        .pillar-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+        }
+        .pillar-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* SECTION 4: UPCOMING */
+        .upcoming {
+            background-color: var(--bg-charcoal);
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+        .upcoming h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin: 0 0 20px 0;
+            letter-spacing: 2px;
+        }
+        .upcoming-badge {
+            background: rgba(255, 79, 163, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .upcoming p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            line-height: 1.8;
+        }
+        .upcoming-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        .upcoming-details span {
+            color: #ffffff;
+        }
+
+        /* SECTION 5: WAITLIST FORM */
+        .waitlist {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .waitlist h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+        }
+        .waitlist p {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--bg-charcoal);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 16px;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 79, 163, 0.15);
+            background-color: var(--bg-card);
+        }
+        .waitlist button {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        /* SECTION 6: FOOTER */
+        footer {
+            background-color: #050505;
+            padding: 60px 8% 40px 8%;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .footer-brand h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 0 0 35px 0;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .footer-socials a svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--text-muted);
+            transition: fill 0.3s ease, filter 0.3s ease;
+        }
+        .footer-socials a:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
+        .footer-copy {
+            font-size: 0.75rem;
+            color: #444444;
+            letter-spacing: 1px;
+        }
+
+        /* System Animations */
+        @keyframes background-pulse {
+            0% { background-size: 100%; }
+            100% { background-size: 105%; }
+        }
+
+        /* Mobile Optimization Media Queries */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            .btn-secondary {
+                margin-left: 0;
+            }
+            section {
+                padding: 80px 6%;
+            }
+            .upcoming-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.jpg" alt="Candy Flip Logo">
+            Candy Flip
+        </a>
+    </nav>
+
+    <!-- SECTION 1: HERO -->
+    <section class="hero">
+        <h1>Where Next?</h1>
+        <p>
+            The continuation of the night.
+            <span>For those who never want the party to end.</span>
+        </p>
+        <div class="hero-btns">
+            <a href="#waitlist-section" class="btn btn-primary">Join the Waitlist</a>
+            <a href="https://instagram.com" target="_blank" class="btn btn-secondary">Follow on Instagram</a>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT -->
+    <section class="about">
+        <span class="section-tag">The Philosophy</span>
+        <h2>The Main Event Is Just The Opening Act.</h2>
+        <p>Candy Flip follows the biggest electronic music experiences and creates curated afters for the crowd that isn't ready to go home.</p>
+        
+        <div class="highlights-grid">
+            <div class="highlight-item">
+                <h3>Limited Capacity</h3>
+                <p>Strict entry guidelines to maintain absolute focus on intimacy.</p>
+            </div>
+            <div class="highlight-item">
+                <h3>Curated Access</h3>
+                <p>Designed strictly for the deep lovers of underground dance culture.</p>
+            </div>
+            <div class="highlight-item">
+                <h3>Unforgettable Nights</h3>
+                <p>Seamlessly continuing energy environments until long past sunrise.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: WHAT WE STAND FOR -->
+    <section class="pillars">
+        <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <div class="pillar-card">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm14 10v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <h3>Curated Crowds</h3>
+                <p>A selective gathering of like-minded purists who preserve and protect the energy on the floor.</p>
+            </div>
+            <!-- Pillar 2 -->
+            <div class="pillar-card">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                <h3>Music First</h3>
+                <p>Uncompromising lineups featuring world-class selectors, customized acoustics, and deep extended sets.</p>
+            </div>
+            <!-- Pillar 3 -->
+            <div class="pillar-card">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <h3>Secret Locations</h3>
+                <p>Bespoke transformations of industrial layouts and raw spaces tailored explicitly for each specific act.</p>
+            </div>
+            <!-- Pillar 4 -->
+            <div class="pillar-card">
+                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <h3>The Party Never Ends</h3>
+                <p>Rejecting the standard constraints of operating club timelines. We end when the narrative concludes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: UPCOMING -->
+    <section class="upcoming">
+        <div class="upcoming-badge">Next Experience</div>
+        <h2>Summer Is Coming.</h2>
+        <p>Something is being prepared for one of the biggest nights of the season. Curated space configuration underway.</p>
+        <div class="upcoming-details">
+            <div>Location: <span>North Coast</span></div>
+            <div>Access: <span>Limited Capacity</span></div>
+            <div>Status: <span>Details Soon</span></div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: WAITLIST FORM -->
+    <section id="waitlist-section" class="waitlist">
+        <h2>Get Early Access</h2>
+        <p>Secure entry privileges and early-bird notifications for upcoming underground configurations.</p>
+        
+        <form action="#" method="POST">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" required placeholder="John">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" required placeholder="Doe">
+                </div>
+                <div class="form-group">
+                    <label for="instagram">Instagram Username</label>
+                    <input type="text" id="instagram" required placeholder="@username">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="+20 1XX XXX XXXX">
+                </div>
+                <div class="form-group full-width">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group full-width">
+                    <label for="attendance">How are you attending?</label>
+                    <select id="attendance" required>
+                        <option value="" disabled selected hidden>Select attendance style...</option>
+                        <option value="couple">Couple</option>
+                        <option value="mixed-group">Mixed Group</option>
+                        <option value="individual">Individual</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <button type="submit" class="btn btn-primary">Join the Waitlist</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- SECTION 6: FOOTER -->
+    <footer>
+        <div class="footer-brand">
+            <h3>Candy Flip Afters</h3>
+            <p>Afters. Redefined.</p>
+        </div>
+        <div class="footer-socials">
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2" stroke="currentColor" fill="none"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-width="2" stroke="currentColor" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke="currentColor"/></svg>
+            </a>
+            <!-- WhatsApp -->
+            <a href="https://wa.me" target="_blank" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Candy Flip Afters. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
