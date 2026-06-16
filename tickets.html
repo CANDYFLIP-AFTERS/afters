@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Flip Afters | Secure Access Tickets</title>
+    <link rel="icon" type="image/png" href="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-charcoal: #0a0a0a;
+            --bg-card: #121212;
+            --accent: #FF4FA3;
+            --accent-glow: rgba(255, 79, 163, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-pure);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999;
+        }
+        .global-neon-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9)), url('Gemini_Generated_Image_enmvnienmvnienmv (1).png');
+            background-size: cover; background-position: center;
+            z-index: 1; pointer-events: none;
+        }
+        nav {
+            position: absolute; top: 0; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 6%; box-sizing: border-box; z-index: 100;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 14px;
+            text-decoration: none; font-family: var(--font-display);
+            font-size: 1.15rem; color: var(--text-main);
+            text-transform: uppercase;
+        }
+        .nav-logo img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+        .back-home {
+            color: #ffffff; text-decoration: none; font-size: 0.85rem;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .back-home:hover { color: var(--accent); border-color: var(--accent); }
+        
+        .checkout-container {
+            position: relative; z-index: 2;
+            max-width: 1100px; margin: 140px auto 80px auto;
+            padding: 0 4%; display: grid;
+            grid-template-columns: 1.1fr 1.3fr; gap: 50px;
+        }
+        .poster-sticky { position: sticky; top: 120px; height: fit-content; }
+        .poster-sticky img { width: 100%; height: auto; border: 1px solid rgba(255,255,255,0.05); }
+        
+        .details-column h1 {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+            text-transform: uppercase; margin: 0 0 10px 0; line-height: 1.1;
+        }
+        .event-meta-tag {
+            color: var(--accent); font-family: var(--font-display);
+            text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;
+            margin-bottom: 30px; display: block;
+        }
+        .event-description-block {
+            color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;
+            margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 30px;
+        }
+
+        /* Interactive Dynamic Checkout Panel Elements */
+        .checkout-panel {
+            background-color: rgba(18, 18, 18, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 40px 30px;
+            box-sizing: border-box;
+        }
+        .checkout-panel h2 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            margin: 0 0 25px 0;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: rgba(5, 5, 5, 0.85);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 16px;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 79, 163, 0.15);
+        }
+        .form-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Dynamic Slide Container Layout */
+        .collapsible-names-node {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .collapsible-names-node.field-open {
+            max-height: 180px;
+        }
+
+        /* Unified Calculator Box Area */
+        .pricing-summary-box {
+            border-top: 1px dashed rgba(255,255,255,0.1);
+            margin-top: 30px;
+            padding-top: 25px;
+        }
+        .instapay-instructions-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+        }
+        .instapay-instructions-text strong {
+            color: #ffffff;
+        }
+        
+        .total-display-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color: rgba(5, 5, 5, 0.4);
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .total-display-row span {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .total-display-row .price-node {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        /* Action Buttons Structure */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-solid-pink {
+            background-color: var(--accent);
+            color: #000000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            border: none;
+        }
+        .btn-solid-pink:hover {
+            background-color: #ffffff;
+            box-shadow: 0 6px 25px var(--accent);
+            transform: translateY(-1px);
+        }
+        .btn-outline-dim {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+        }
+        .btn-outline-dim:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+        
+        .verification-notice {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 20px;
+            text-align: justify;
+            display: block;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 15px;
+        }
+        .verification-notice strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (max-width: 850px) {
+            .checkout-container { grid-template-columns: 1fr; margin-top: 100px; }
+            .poster-sticky { position: relative; top: 0; max-width: 400px; margin: 0 auto; }
+            .checkout-panel { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+    <div class="global-neon-bg"></div>
+
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <img src="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.png" alt="Candy Flip Logo">
+        </a>
+        <a href="index.html" class="back-home">← Return Main Page</a>
+    </nav>
+
+    <main class="checkout-container">
+        <div class="poster-sticky">
+            <img src="current-poster.png" alt="Active Configuration Setup Event Poster">
+        </div>
+
+        <div class="details-column">
+            <span class="event-meta-tag">Adriatic Configuration // Show #02</span>
+            <h1>Summer Edition</h1>
+            
+            <div class="event-description-block">
+                <p>Location: Secret Open Air Arena, North Coast<br>
+                Date: Friday, July 17, 2026 // 23:00 - Sunrise</p>
+                <p>Candy Flip continues the frequency narrative past dawn. Sound field optimization via custom alignment blocks. Entry strictly permitted via verified ticket registration matches only.</p>
+            </div>
+
+            <div class="checkout-panel">
+                <h2>Secure Your Access Tickets</h2>
+                
+                <form id="checkout-form">
+                    <input type="hidden" name="access_key" value="798c2053-d5c5-451d-ba18-f501b00c6d0d">
+                    <input type="hidden" id="form-total-egp" name="Total Paid (EGP)" value="1200">
+                    
+                    <div class="form-group">
+                        <label for="primary-name">Full Name (Primary Guest)</label>
+                        <input type="text" id="primary-name" name="Primary Guest Name" placeholder="Enter your full name" required oninput="calculateTotalSummary()">
+                    </div>
+
+                    <div class="form-grid-row">
+                        <div class="form-group">
+                            <label for="primary-phone">Phone Number</label>
+                            <input type="tel" id="primary-phone" name="Phone Number" placeholder="+20 1XX XXX XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="primary-instagram">Instagram Handle</label>
+                            <input type="text" id="primary-instagram" name="Instagram Handle" placeholder="@username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="primary-email">Email Address</label>
+                        <input type="email" id="primary-email" name="Email Address" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-category">Ticket Tier Category</label>
+                        <select id="ticket-category" name="Selected Ticket Tier" required onchange="calculateTotalSummary()">
+                            <option value="1000">Early Bird Tier — 1,000 EGP</option>
+                            <option value="1200" selected>Wave One Tier (Public Sale) — 1,200 EGP</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grid-row">
+                        <div class="form-group">
+                            <label for="ticket-quantity">Quantity</label>
+                            <select id="ticket-quantity" name="Ticket Quantity" required onchange="calculateTotalSummary()">
+                                <option value="1" selected>1 Ticket</option>
+                                <option value="2">2 Tickets</option>
+                                <option value="3">3 Tickets</option>
+                                <option value="4">4 Tickets</option>
+                                <option value="5">5 Tickets</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendance-style">Attendance Style</label>
+                            <select id="attendance-style" name="Attendance Layout Style" required onchange="handleStyleFieldToggle()">
+                                <option value="individual" selected>Individual</option>
+                                <option value="couple">Couple</option>
+                                <option value="mixed-group">Mixed Group</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="companion-block-wrapper" class="collapsible-names-node">
+                        <div class="form-group">
+                            <label id="companion-label" for="companion-names">Companion Names / Partner Name</label>
+                            <textarea id="companion-names" name="Companion List Breakdown" rows="2" placeholder="List full names of all accompanying guests..." oninput="calculateTotalSummary()"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="pricing-summary-box">
+                        <div class="total-display-row">
+                            <span>Total Due Summary:</span>
+                            <div class="price-node"><span id="calculated-sum">1200</span> EGP</div>
+                        </div>
+
+                        <p class="instapay-instructions-text">
+                            <strong>Step 1:</strong> Tap below to launch the <strong>InstaPay App</strong> seamlessly routed directly to our personal username channel, input the exact total amount shown above, and complete your transfer:
+                        </p>
+
+                        <a href="https://ipn.eg/S/asafwat9/instapay/2MK11r" target="_blank" class="btn-action btn-outline-dim">
+                            Open InstaPay &amp; Pay Now
+                        </a>
+
+                        <p class="instapay-instructions-text" style="margin-top: 5px;">
+                            <strong>Step 2:</strong> Once the transfer successfully goes through, click the button below to automatically submit your form data secure to our dashboard and open WhatsApp to deliver your proof screenshot.
+                        </p>
+
+                        <button type="button" class="btn-action btn-solid-pink" onclick="executeCheckoutDualPipeline()">
+                            Send Proof on WhatsApp &amp; Claim Tickets
+                        </button>
+                        
+                        <small class="verification-notice">
+                            * Tickets are manually cross-verified within <strong>30–60 minutes</strong> directly on WhatsApp. To protect and preserve the signature, intimate floor energy of Candy Flip, every guest registry passes through a curated filtering process. In the rare instance that a complication arises or your clearance is unfulfilled, a <strong>full refund will be processed and returned to you instantly</strong> without delay. Please kindly be advised that uncompromising door selection criteria remain strictly active at the venue gates; should entry be declined by our management teams on-site, a <strong>full refund will be issued to you immediately at the door</strong>.
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calculateTotalSummary() {
+            const pricePerTicket = parseInt(document.getElementById('ticket-category').value);
+            const quantity = parseInt(document.getElementById('ticket-quantity').value);
+            const sumNode = document.getElementById('calculated-sum');
+            const hiddenFormSum = document.getElementById('form-total-egp');
+            const grandTotal = pricePerTicket * quantity;
+            sumNode.innerText = grandTotal.toLocaleString();
+            hiddenFormSum.value = grandTotal;
+            return grandTotal;
+        }
+
+        function handleStyleFieldToggle() {
+            const styleSelector = document.getElementById('attendance-style').value;
+            const containerNode = document.getElementById('companion-block-wrapper');
+            const labelNode = document.getElementById('companion-label');
+            const inputNode = document.getElementById('companion-names');
+
+            if (styleSelector === 'individual') {
+                containerNode.classList.remove('field-open');
+                inputNode.removeAttribute('required');
+            } else {
+                containerNode.classList.add('field-open');
+                inputNode.setAttribute('required', 'true');
+                if (styleSelector === 'couple') {
+                    labelNode.innerText = "Partner Full Name";
+                    inputNode.placeholder = "Enter your partner's full name...";
+                } else {
+                    labelNode.innerText = "Group Member Full Names";
+                    inputNode.placeholder = "Enter full names separated by commas...";
+                }
+            }
+            calculateTotalSummary();
+        }
+
+        function executeCheckoutDualPipeline() {
+            const targetForm = document.getElementById('checkout-form');
+            const primaryGuestName = document.getElementById('primary-name').value.trim();
+            const primaryPhone = document.getElementById('primary-phone').value.trim();
+            const primaryInstagram = document.getElementById('primary-instagram').value.trim();
+            const primaryEmail = document.getElementById('primary-email').value.trim();
+            const attendanceStyleType = document.getElementById('attendance-style').value;
+            const companionNamesString = document.getElementById('companion-names').value.trim();
+            const categorySelectNode = document.getElementById('ticket-category');
+            const categoryLabelText = categorySelectNode.options[categorySelectNode.selectedIndex].text.split('—')[0].trim();
+            const ticketQuantity = document.getElementById('ticket-quantity').value;
+            const financialSumMetric = calculateTotalSummary();
+
+            if (!primaryGuestName || !primaryPhone || !primaryInstagram || !primaryEmail) {
+                alert("Please complete all personal guest details inside the panel framework configuration boundary before pushing data to verification nodes.");
+                return;
+            }
+
+            if (attendanceStyleType !== 'individual' && !companionNamesString) {
+                alert("Please fill out companion group data variables completely.");
+                document.getElementById('companion-names').focus();
+                return;
+            }
+
+            const dataPayload = new FormData(targetForm);
+            
+            // Fires background upload registry
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: dataPayload
+            });
+
+            // Formats receipt query blocks
+            let receiptMessage = `Hi Candy Flip! I have successfully processed my ticket registration transfer via InstaPay.%0A%0A`;
+            receiptMessage += `*— ORDER REGISTRATION ACCESS TICKET REQUEST —*%0A`;
+            receiptMessage += `• *Primary Selector Name:* ${encodeURIComponent(primaryGuestName)}%0A`;
+            receiptMessage += `• *Phone Number:* ${encodeURIComponent(primaryPhone)}%0A`;
+            receiptMessage += `• *Instagram Handle:* ${encodeURIComponent(primaryInstagram)}%0A`;
+            receiptMessage += `• *Email Address:* ${encodeURIComponent(primaryEmail)}%0A`;
+            receiptMessage += `• *Access Tier Category:* ${encodeURIComponent(categoryLabelText)}%0A`;
+            receiptMessage += `• *Allocated Quantity:* ${encodeURIComponent(ticketQuantity)} Ticket(s)%0A`;
+            receiptMessage += `• *Attendance Layout Style:* ${encodeURIComponent(attendanceStyleType.toUpperCase())}%0A`;
+            
+            if (attendanceStyleType !== 'individual') {
+                receiptMessage += `• *Accompanying Companions:* ${encodeURIComponent(companionNamesString)}%0A`;
+            }
+            receiptMessage += `• *Total Calculated Amount:* ${encodeURIComponent(financialSumMetric)} EGP%0A%0A`;
+            receiptMessage += `I am attaching my transaction verification screenshot below. Please cross-verify and register my access ticket clearance!`;
+
+            // Launches external messaging window thread 
+            const operationalTargetURL = `https://wa.me/201121680816?text=${receiptMessage}`;
+            window.open(operationalTargetURL, '_blank');
+
+            // INSTANT BREAK REDIRECT: Erases checkout workspace layout state instantly to bar duplicates
+            window.location.href = 'thankyou.html';
+        }
+    </script>
+</body>
+</html>

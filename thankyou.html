@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Logged | Candy Flip Afters</title>
+    <link rel="icon" type="image/png" href="3ba717a8-3f8d-4cbe-a45f-47e5381d547a.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-charcoal: #0a0a0a;
+            --accent: #FF4FA3;
+            --accent-glow: rgba(255, 79, 163, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-pure);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0; padding: 0;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; width: 100vw;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999;
+        }
+        .global-neon-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.95)), url('Gemini_Generated_Image_enmvnienmvnienmv (1).png');
+            background-size: cover; background-position: center;
+            z-index: 1; pointer-events: none;
+        }
+        
+        .thankyou-panel {
+            position: relative; z-index: 2;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 50px 40px;
+            max-width: 580px; width: 90%;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        
+        .success-icon-pulsar {
+            width: 70px; height: 70px;
+            background: rgba(255, 79, 163, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 25px auto;
+            color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            animation: rhythmic-glow 2s infinite alternate;
+        }
+        .success-icon-pulsar svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+
+        .thankyou-panel h1 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0 0 12px 0;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        .thankyou-panel .subtitle {
+            color: var(--accent);
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            display: block;
+            font-weight: 700;
+        }
+        
+        .notice-container-box {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            text-align: justify;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.02);
+            padding: 22px;
+            margin-bottom: 35px;
+        }
+        .notice-container-box strong { color: #ffffff; }
+
+        /* Navigation Matrix Layout Row */
+        .action-row-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-nav-node {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .btn-solid-pink {
+            background-color: var(--accent);
+            color: #000000;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .btn-solid-pink:hover {
+            background-color: #ffffff;
+            box-shadow: 0 6px 25px var(--accent);
+            transform: translateY(-1px);
+        }
+        .btn-outline-dim {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-outline-dim:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        @keyframes rhythmic-glow {
+            0% { box-shadow: 0 0 10px var(--accent-glow); transform: scale(1); }
+            100% { box-shadow: 0 0 25px var(--accent); transform: scale(1.03); }
+        }
+
+        @media (max-width: 600px) {
+            .thankyou-panel { padding: 40px 20px; width: 92%; }
+            .action-row-buttons { flex-direction: column; gap: 12px; }
+            .notice-container-box { padding: 15px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+    <div class="global-neon-bg"></div>
+
+    <div class="thankyou-panel">
+        
+        <!-- Hologram Pulsar Check Node -->
+        <div class="success-icon-pulsar">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+
+        <h1>Access Logged</h1>
+        <span class="subtitle">Welcome to the inside</span>
+        
+        <!-- Elite Repeated Parameter Notice Text Frame Block -->
+        <div class="notice-container-box">
+            * Tickets are manually cross-verified within <strong>30–60 minutes</strong> directly on WhatsApp. To protect and preserve the signature, intimate floor energy of Candy Flip, every guest registry passes through a curated filtering process. In the rare instance that a complication arises or your clearance is unfulfilled, a <strong>full refund will be processed and returned to you instantly</strong> without delay. Please kindly be advised that uncompromising door selection criteria remain strictly active at the venue gates; should entry be declined by our management teams on-site, a <strong>full refund will be issued to you immediately at the door</strong>.
+        </div>
+
+        <!-- Navigation Row Controllers Matrix -->
+        <div class="action-row-buttons">
+            <a href="https://www.instagram.com/candyflip.afters?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-nav-node btn-solid-pink">
+                Follow Instagram
+            </a>
+            <a href="index.html" class="btn-nav-node btn-outline-dim">
+                Return Homepage
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
