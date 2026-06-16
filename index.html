@@ -655,7 +655,23 @@
             .benefit-card h3 { font-size: 0.95rem; }
             .benefit-card p { font-size: 0.85rem; }
             .audio-dashboard-node { bottom: 20px; right: 20px; width: 48px; height: 46px; }
-        }
+       .ticket-poster-wrapper {
+        display: none;
+        margin: 40px auto;
+        max-width: 450px;
+    }
+    .ticket-poster-link {
+        display: block;
+        border: 1px solid rgba(255, 79, 163, 0.2);
+        transition: all 0.4s ease;
+        overflow: hidden;
+    }
+    .ticket-poster-link img { width: 100%; display: block; }
+
+    /* Trigger: When body has the class "tickets-live" */
+    body.tickets-live .waitlist { display: none !important; }
+    body.tickets-live .ticket-poster-wrapper { display: block; }
+    body.tickets-live #upcoming-section .tba-text { display: none; }
     </style>
 </head>
 <body>
@@ -752,17 +768,24 @@
 
     <!-- SECTION 4: UPCOMING -->
     <section id="upcoming-section" class="upcoming">
-        <div class="upcoming-badge">Next Experience</div>
-        <h2>Candy Flip Summer Edition</h2>
-        <p>Something is being prepared for one of the biggest nights of the season. Curated space configuration underway.</p>
-        <div class="upcoming-details">
-            <div>Location: <span>North Coast</span></div>
-            <div>Date: <span>July</span></div>
-            <div>Access: <span>Limited Capacity</span></div>
-            <div>Status: <span>Details Soon</span></div>
-        </div>
-        <div class="tba-text">More Details TBA</div>
-    </section>
+    <div class="upcoming-badge">Next Experience</div>
+    <h2>Candy Flip Summer Edition</h2>
+    <p>Something is being prepared for one of the biggest nights of the season. Curated space configuration underway.</p>
+    
+    <div class="ticket-poster-wrapper">
+        <a href="tickets.html" class="ticket-poster-link">
+            <img src="current-poster.png" alt="Event Poster">
+        </a>
+    </div>
+
+    <div class="upcoming-details">
+        <div>Location: <span>North Coast</span></div>
+        <div>Date: <span>July</span></div>
+        <div>Access: <span>Limited Capacity</span></div>
+        <div>Status: <span id="status-text">Waitlist Open</span></div>
+    </div>
+    <div class="tba-text">More Details TBA</div>
+</section>
 
     <!-- SECTION: WHY JOIN -->
     <section class="why-join">
@@ -854,6 +877,16 @@
 
     <!-- Logic Engine Script Framework -->
     <script>
+        <script>
+    // Automatically update text when tickets go live
+    window.addEventListener('DOMContentLoaded', () => {
+        if (document.body.classList.contains('tickets-live')) {
+            document.getElementById('status-text').innerText = "Tickets Live";
+        }
+    });
+
+    // ... your existing initiateClubExperience function starts here ...
+    function initiateClubExperience() {
         function initiateClubExperience() {
             const audioTrack = document.getElementById('club-track');
             const overlayGate = document.getElementById('entry-overlay');
