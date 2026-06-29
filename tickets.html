@@ -73,17 +73,37 @@
         
         .details-column h1 {
             font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
-            text-transform: uppercase; margin: 0 0 10px 0; line-height: 1.1;
+            text-transform: uppercase; margin: 0 0 5px 0; line-height: 1.1;
+            color: var(--accent);
         }
-        .event-meta-tag {
-            color: var(--accent); font-family: var(--font-display);
-            text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;
-            margin-bottom: 30px; display: block;
+        .event-sub-headline {
+            font-family: var(--font-display); font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 30px; display: block; color: #ffffff;
         }
+
         .event-description-block {
-            color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;
+            color: var(--text-main); line-height: 1.7; font-size: 0.95rem;
             margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 30px;
+            padding-bottom: 30px; text-align: left;
+        }
+        .event-info-line {
+            margin-bottom: 10px;
+            color: var(--accent);
+            display: flex;
+            flex-direction: column;
+        }
+        .event-info-line strong {
+            color: #ffffff; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            font-size: 0.8rem;
+        }
+        .event-narrative {
+            color: var(--text-muted);
+            margin-top: 25px;
+            line-height: 1.8;
+            font-size: 0.95rem;
         }
 
         /* Interactive Dynamic Checkout Panel Elements */
@@ -243,6 +263,8 @@
             .checkout-container { grid-template-columns: 1fr; margin-top: 100px; }
             .poster-sticky { position: relative; top: 0; max-width: 400px; margin: 0 auto; }
             .checkout-panel { padding: 30px 20px; }
+            .event-info-line { display: block; }
+            .event-info-line strong { margin-right: 5px; }
         }
     </style>
 </head>
@@ -259,46 +281,43 @@
     </nav>
 
     <main class="checkout-container">
-        <!-- Sticky Art Block Column -->
         <div class="poster-sticky">
             <img src="current-poster.png" alt="Active Configuration Setup Event Poster">
         </div>
 
-        <!-- Transaction Details Processing Column -->
         <div class="details-column">
-            <span class="event-meta-tag">CandyFlip X UNLISTED</span>
-            <h1>THE ULTIMATE HOUSEPARTY</h1>
             
-            <div class="event-description-block"style="color: #ffffff;">
-                <p>Location: Private Villa at Sheikh Zayed 
-                (Specific Location will be Sent to Ticket Holders) <br>
-                    
-                Date: Thursday, 2nd of July Night // 07:00 PM - 05:00AM</p>
-                
-            <p>Candy Flip transforms the traditional after-hours kick-on into a full-scale movement. We pair the city's finest local talent with premium locations and a hand-picked crowd to keep the energy alive well past sunrise. Because for us, the party never ends. Access is strictly limited to verified ticket matches..</p>
+            <h1>CandyFlip X UNLISTED</h1>
+            <span class="event-sub-headline">THE ULTIMATE HOUSEPARTY</span>
+            
+            <div class="event-description-block">
+                <div class="event-info-line">
+                    <strong>Location:</strong> PRIVATE VILLA IN ZAYED (Location Sent to Ticket Holders)
+                </div>
+                <div class="event-info-line">
+                    <strong>Date:</strong> Thursday, 2nd of July Night // 07:00 PM - 05:00 AM
+                </div>
+                <p class="event-narrative">
+                    Candy Flip transforms the traditional after-hours kick-on into a full-scale movement. We pair the city's finest local talent with premium locations and a hand-picked crowd to keep the energy alive well past sunrise. Because for us, the party never ends. Access is strictly limited to verified ticket matches.
+                </p>
             </div>
 
-            <!-- Dynamic Interactive Checkout Form Entity -->
             <div class="checkout-panel">
                 <h2>Secure Your Tickets Now</h2>
                 
-                <!-- Native submit routing via validation logic engine hook -->
                 <form id="checkout-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return executeCheckoutDualPipeline(event)">
                     
-                    <!-- WEB3FORMS SYSTEM ARCHITECTURE CONFIGURATION MATRIX -->
                     <input type="hidden" name="access_key" value="798c2053-d5c5-451d-ba18-f501b00c6d0d">
                     <input type="hidden" id="form-subject-line" name="subject" value="New Ticket Purchase Order">
-                    <input type="hidden" id="form-total-egp" name="Total Calculated Bill (EGP)" value="800 EGP">
-                    <input type="hidden" id="form-readable-tier" name="Selected Ticket Tier Name" value="Wave One Tier (Public Sale)">
+                    <input type="hidden" id="form-total-egp" name="Total Calculated Bill (EGP)" value="1000 EGP">
+                    <input type="hidden" id="form-readable-tier" name="Selected Ticket Tier Name" value="Single Tier">
                     <input type="hidden" id="native-redirect" name="redirect" value="">
 
-                    <!-- Full Name Capture Input -->
                     <div class="form-group">
                         <label for="primary-name">Full Name (Primary Guest)</label>
                         <input type="text" id="primary-name" name="Primary Guest Full Name" placeholder="Enter your full name" required oninput="calculateTotalSummary()">
                     </div>
 
-                    <!-- Phone Number & Instagram Handle Captured Row -->
                     <div class="form-grid-row">
                         <div class="form-group">
                             <label for="primary-phone">Phone Number</label>
@@ -310,19 +329,17 @@
                         </div>
                     </div>
 
-                    <!-- Email Address Capture Input -->
                     <div class="form-group">
                         <label for="primary-email">Email Address</label>
                         <input type="email" id="primary-email" name="Primary Email Address" placeholder="john@example.com" required>
                     </div>
 
-                    <!-- Category & Attendance Setup Row -->
                     <div class="form-group">
                         <label for="ticket-category">Ticket Tier Category</label>
                         <select id="ticket-category" required onchange="calculateTotalSummary()">
-    <option value="1,000" selected>Single Tier — 1,000 EGP</option>
-    <option value="800">Couple Tier — 800 EGP</option>
-</select>
+                            <option value="1000" selected>Single Tier — 1,000 EGP</option>
+                            <option value="800">Couple Tier — 800 EGP</option>
+                        </select>
                     </div>
 
                     <div class="form-grid-row">
@@ -346,7 +363,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Additional Guest Names Block -->
                     <div id="companion-block-wrapper" class="collapsible-names-node">
                         <div class="form-group">
                             <label id="companion-label" for="companion-names">Companion Names / Partner Name</label>
@@ -354,20 +370,18 @@
                         </div>
                     </div>
 
-                    <!-- Pricing Calculation & InstaPay Node Display Block -->
                     <div class="pricing-summary-box">
                         
                         <div class="total-display-row">
                             <span>Total Due Summary:</span>
-                            <div class="price-node"><span id="calculated-sum">1000</span> EGP</div>
+                            <div class="price-node"><span id="calculated-sum">1,000</span> EGP</div>
                         </div>
 
                         <p class="instapay-instructions-text">
                             <strong>Step 1:</strong> Tap below to launch the <strong>InstaPay App</strong> seamlessly routed directly to our personal username channel, input the exact total amount shown above, and complete your transfer:
                         </p>
 
-                        <!-- Deep Link InstaPay Application Action Redirector with Tracking Trigger -->
-                        <a href="https://ipn.eg/S/asafwat9/instapay/2MK11r" target="_blank" class="btn-action btn-outline-dim" onclick="registerInstaPayPortalLaunch()">
+                        <a href="https://ipn.eg/S/candyflip/instapay/3Wfocm" target="_blank" class="btn-action btn-outline-dim" onclick="registerInstaPayPortalLaunch()">
                             Open InstaPay &amp; Pay Now
                         </a>
 
@@ -375,12 +389,10 @@
                             <strong>Step 2:</strong> Once the transfer successfully goes through, click the button below to automatically submit your form data secure to our dashboard and open WhatsApp to deliver your proof screenshot.
                         </p>
 
-                        <!-- Final execution trigger button node -->
                         <button type="submit" class="btn-action btn-solid-pink">
                             Send Proof on WhatsApp &amp; Claim Tickets
                         </button>
                         
-                        <!-- Elite & Kind Rephrased Operational Notice -->
                         <small class="verification-notice">
                             * Tickets are manually cross-verified within <strong>30–60 minutes</strong> directly on WhatsApp. To protect and preserve the signature, intimate floor energy of Candy Flip, every guest registry passes through a curated filtering process. In the rare instance that a complication arises or your clearance is unfulfilled, a <strong>full refund will be processed and returned to you instantly</strong> without delay. Please kindly be advised that uncompromising door selection criteria remain strictly active at the venue gates; should entry be declined by our management teams on-site, a <strong>full refund will be issued to you immediately at the door</strong>.
                         </small>
@@ -392,7 +404,6 @@
         </div>
     </main>
 
-    <!-- Logic Processing Framework Engine -->
     <script>
         // Internal Tracking State Matrix
         let trackingInstaPayStateActive = false;
